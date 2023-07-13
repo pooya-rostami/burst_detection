@@ -26,7 +26,7 @@ def tau(i1,i2,gamma,n):
 #    r: number of target events in each time period (1xn)
 #    p: expected proportions of each state (1xk)
 def fit(d,r,p):
-    return -np.log(np.float(c.binomial(d,r)) * (p**r) * (1-p)**(d-r))
+    return -np.log(np.float64(c.binomial(d,r)) * (p**r) * (1-p)**(d-r))
 
 
 #define the burst detection function for a two-state automaton
@@ -79,7 +79,7 @@ def burst_detection(r,d,n,s,gamma,smooth_win):
                 cost[t,j] = tau(q[t-1],j,gamma,real_n) + fit(d[t],r[t],p[j])
 
         #add the state with the minimum cost to the optimal state sequence
-        q[t] = np.where(cost[t,:] == min(cost[t,:]))
+        q[t] = np.where(cost[t,:] == min(cost[t,:]))[0]
 
     return q, d, r, p
 
